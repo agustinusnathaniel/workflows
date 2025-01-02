@@ -6,6 +6,12 @@ on:
 jobs:
   update-license:
     runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
     steps:
       # Check out the repository
       - uses: actions/checkout@v3
@@ -16,7 +22,6 @@ jobs:
           sed -i "s/Copyright (c) [0-9]\{4\}/Copyright (c) $year/" LICENSE
       # Commit and push the changes
       - name: Commit and push
-        uses: stefanzweifel/git-auto-commit-action@v3
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update license to current year"
-          push: true
+          commit_message: "chore: update license to current year"
